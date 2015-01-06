@@ -1,0 +1,2 @@
+Keystore Alias: "bii"
+Keystore Password: "beyonce"
