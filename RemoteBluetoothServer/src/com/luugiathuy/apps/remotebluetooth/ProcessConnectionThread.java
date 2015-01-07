@@ -2,11 +2,17 @@ package com.luugiathuy.apps.remotebluetooth;
 
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.microedition.io.StreamConnection;
 
 import at.bii.display.FFT_Display;
+import at.bii.display.TeePrintStream;
 
 public class ProcessConnectionThread implements Runnable {
 
@@ -19,12 +25,30 @@ public class ProcessConnectionThread implements Runnable {
 
 	public boolean connected = true;
 
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+
 	private FFT_Display myDisplay;
+
+	private long start;
 
 	public ProcessConnectionThread(StreamConnection connection) {
 		mConnection = connection;
 		myDisplay = new FFT_Display();
 		myDisplay.setVisible(true);
+		
+		
+		FileOutputStream file = null;
+		try {
+			file = new FileOutputStream("C:\\Temp\\log_BluetoothConnect.txt");
+//			out = new PrintStream(new FileOutputStream("C:\\log_BluetoothConnect.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TeePrintStream tee = new TeePrintStream(file, System.out);
+		System.setOut(tee);
 	}
 
 	public final static int blockSize = 256;
@@ -45,34 +69,19 @@ public class ProcessConnectionThread implements Runnable {
 			int i = 0;
 			while (connected) {
 				// int command = inputStream.read();
-				System.out.println(i++);
+				if (i==0) {
+					start=System.currentTimeMillis();
+				}
+				System.out.println("Processing Chunk#: "+ i++ + " (at "+ sdf.format(new Date()) + ") [live for " +(System.currentTimeMillis()-start)+ " ms]");
 
 				byte[] response1 = new byte[blockSize * 4]; // 4 * 8 = 32
-				// byte[] response2 = new byte[blockSize * 4]; // 4 * 8 = 32
-				// connected =(inputStream.read(response) <0 );
 				inputStream.read(response1);
-				// inputStream.read(response2);
-				/*
-				 * if (command == EXIT_CMD) {
-				 * System.out.println("finish process"); break; }
-				 */
 
 				int[] procInt = processResponse(response1);
-				// printResponse(response2);
-
-				// byte[] combineBytes = new byte[blockSize*4];
-				// System.arraycopy(response1, 0, combineBytes, 0,
-				// (blockSize-1)*4);
-				// System.arraycopy(response2, 0, combineBytes,
-				// (blockSize-2)*4+1 ,4);
-				//
-				// printResponse(combineBytes);
 
 				if (procInt != null) {
 					myDisplay.displayData(procInt);
 				}
-
-				// processCommand(command);
 
 			}
 			System.out.println(i + " connected=" + connected);
