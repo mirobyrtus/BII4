@@ -81,6 +81,8 @@ public class ProcessConnectionThread implements Runnable {
 
 				if (procInt != null) {
 					myDisplay.displayData(procInt);
+				} else {
+					break;
 				}
 
 			}

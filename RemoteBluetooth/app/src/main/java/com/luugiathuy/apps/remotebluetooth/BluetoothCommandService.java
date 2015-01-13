@@ -64,6 +64,7 @@ public class BluetoothCommandService {
         if (D) Log.d(TAG, "setState() " + mState + " -> " + state);
         mState = state;
 
+        // TODO check this? Sending some end state requests ?
         // Give the new state to the Handler so the UI Activity can update
         mHandler.obtainMessage(RemoteBluetooth.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
@@ -366,7 +367,7 @@ public class BluetoothCommandService {
 
         public void cancel() {
             try {
-            	mmOutStream.write(EXIT_CMD);
+            	// mmOutStream.write(EXIT_CMD); // TODO watch up!
                 mmSocket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
