@@ -72,7 +72,7 @@ public class ProcessConnectionThread implements Runnable {
 				if (i==0) {
 					start=System.currentTimeMillis();
 				}
-				System.out.println("Processing Chunk#: "+ i++ + " (at "+ sdf.format(new Date()) + ") [live for " +(System.currentTimeMillis()-start)+ " ms]");
+//				System.out.println("Processing Chunk#: "+ i++ + " (at "+ sdf.format(new Date()) + ") [live for " +(System.currentTimeMillis()-start)+ " ms]");
 
 				byte[] response1 = new byte[blockSize * 4]; // 4 * 8 = 32
 				inputStream.read(response1);
@@ -93,24 +93,7 @@ public class ProcessConnectionThread implements Runnable {
 		}
 	}
 
-	/**
-	 * Process the command from client
-	 * 
-	 * @param command
-	 *            the command code
-	 */
-	/*
-	 * unused cause its a continuous running thread... private void
-	 * processCommand(int command) { try { Robot robot = new Robot(); switch
-	 * (command) { case KEY_RIGHT: robot.keyPress(KeyEvent.VK_RIGHT);
-	 * System.out.println("Right"); // release the key after it is pressed.
-	 * Otherwise the event just keeps getting trigged
-	 * robot.keyRelease(KeyEvent.VK_RIGHT); break; case KEY_LEFT:
-	 * robot.keyPress(KeyEvent.VK_LEFT); System.out.println("Left"); // release
-	 * the key after it is pressed. Otherwise the event just keeps getting
-	 * trigged robot.keyRelease(KeyEvent.VK_LEFT); break; } } catch (Exception
-	 * e) { e.printStackTrace(); } }
-	 */
+
 
 	/**
 	 * Transform it back into integervalues
@@ -138,7 +121,7 @@ public class ProcessConnectionThread implements Runnable {
 
 			message.append(value + ", ");
 		}
-		System.out.println("Spectrum = " + message.toString());
+//		System.out.println("Spectrum = " + message.toString());
 		if (totalValue == 0) {
 			return null;
 		}

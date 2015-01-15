@@ -2,7 +2,9 @@ package at.bii.display;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -42,17 +44,19 @@ public class FFT_Display extends JFrame {
 	@Override
 	public void paintComponents(Graphics g) {
 		super.paintComponents(g);
-		paintSpectrum(g);
+		paintSpectrum(g,0);
 	}
 
-
-	private void paintSpectrum(Graphics g) {
+	private void paintSpectrum(Graphics g, int type) {
 		int width = getWidth();
 		int height = getHeight();
 		int middleY = height / 2;
 
 		g.setColor(defBackground);
-		g.drawRect(0, 0, width, height);
+
+		Graphics2D g2 = (Graphics2D) g;
+
+		g2.drawRect(0, 0, width, height);
 
 		int barWidth = width / spectrum.length;
 		int maxValue = maxSpectralValue;
@@ -65,23 +69,42 @@ public class FFT_Display extends JFrame {
 			int barPos = width * i / spectrum.length;
 			int curHeight = (spectrum[i] - maxSpectralValue) * height
 					/ maxValue;
-			int percentage = Math.min(100, Math.abs(curHeight * 100 / height));
-			g.setColor(getColor(percentage, 1));
+			if (type == 0) {
+				GradientPaint green2red = new GradientPaint(barPos, middleY,
+						Color.GREEN, barPos + barWidth, middleY/2,
+						Color.RED);
+				g2.setPaint(green2red);
+				g2.drawRect(barPos, middleY, barWidth,
+						curHeight/2);
 
-			g.drawRect(barPos, middleY - curHeight / 2, barWidth, curHeight);
+//				GradientPaint green2red1 = new GradientPaint(barPos, middleY,
+//						Color.GREEN, barPos + barWidth, height*3/4,
+//						Color.RED);
+//				g2.setPaint(green2red1);
+				g2.drawRect(barPos, middleY, barWidth,
+						-curHeight/2);
 
-			g.fillRect(barPos, middleY - curHeight / 2, barWidth, curHeight);
+				
+			} else if (type == 1 || type == 2) {
+				int percentage = Math.min(100,
+						Math.abs(curHeight * 100 / height));
+				g2.setColor(getColor(percentage, type));
+				g2.drawRect(barPos, middleY - curHeight / 2, barWidth,
+						curHeight);
+			}
+				g2.fillRect(barPos, middleY - curHeight / 2, barWidth,
+						curHeight);
 		}
 	}
 
 	private final Color getColor(double power, int type) {
-		if (type == 0) {
+		if (type == 1) {
 			double H = power * 0.4; // Hue (note 0.4 = Green, see huge chart
 									// below)
 			double S = 0.9; // Saturation
 			double B = 0.9; // Brightness
 			return Color.getHSBColor((float) H, (float) S, (float) B);
-		} else if (type == 1) {
+		} else if (type == 2) {
 			int red = (int) (255 * power / 100);
 			int green = (int) ((255 * (100 - power)) / 100);
 			int blue = 0;
