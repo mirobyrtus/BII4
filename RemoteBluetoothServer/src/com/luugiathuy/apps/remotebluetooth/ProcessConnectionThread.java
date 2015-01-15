@@ -51,7 +51,7 @@ public class ProcessConnectionThread implements Runnable {
 		System.setOut(tee);
 	}
 
-	public final static int blockSize = 256;
+	public final static int blockSize = 128;
 
 	private int byteArrayToInt(byte[] bytes) {
 		return bytes[0] << 24 | (bytes[1] & 0xFF) << 16
@@ -83,6 +83,7 @@ public class ProcessConnectionThread implements Runnable {
 					myDisplay.displayData(procInt);
 				} else {
 					break;
+					
 				}
 
 			}
