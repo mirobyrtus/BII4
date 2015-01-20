@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.microedition.io.StreamConnection;
 
 import at.bii.display.FFT_Display;
+import at.bii.display.SplitFrame;
 import at.bii.display.TeePrintStream;
 
 public class ProcessConnectionThread implements Runnable {
@@ -28,17 +29,26 @@ public class ProcessConnectionThread implements Runnable {
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-
-	private FFT_Display myDisplay;
-
+	SplitFrame	 display1=new SplitFrame(1);
+	SplitFrame	 display2=new SplitFrame(2);
+	
 	private long start;
 
-	public ProcessConnectionThread(StreamConnection connection) {
-		mConnection = connection;
-		myDisplay = new FFT_Display();
-		myDisplay.setVisible(true);
+	private FFT_Display myDisplay0;
+	private FFT_Display myDisplay1;
+	private FFT_Display myDisplay2;
+
+
+	public ProcessConnectionThread() {
+		myDisplay0 = new FFT_Display(0);
+		myDisplay0.setVisible(true);
+
+		myDisplay1 = new FFT_Display(1);
+		myDisplay1.setVisible(true); 
 		
-		
+		myDisplay2 = new FFT_Display(2);
+		myDisplay2.setVisible(true);
+
 		FileOutputStream file = null;
 		try {
 			file = new FileOutputStream("C:\\Temp\\log_BluetoothConnect.txt");
@@ -49,6 +59,10 @@ public class ProcessConnectionThread implements Runnable {
 		}
 		TeePrintStream tee = new TeePrintStream(file, System.out);
 		System.setOut(tee);
+	}
+	
+	public void setConnection(StreamConnection connection) {
+		mConnection = connection;
 	}
 
 	public final static int blockSize = 128;
@@ -80,7 +94,11 @@ public class ProcessConnectionThread implements Runnable {
 				int[] procInt = processResponse(response1);
 
 				if (procInt != null) {
-					myDisplay.displayData(procInt);
+					myDisplay0.displayData(procInt);
+					myDisplay1.displayData(procInt);
+					myDisplay2.displayData(procInt);
+					
+					display1.displayData(procInt);
 				} else {
 					break;
 					

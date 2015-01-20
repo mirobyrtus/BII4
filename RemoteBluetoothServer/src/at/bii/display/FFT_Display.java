@@ -13,19 +13,20 @@ import javax.swing.SwingUtilities;
 
 public class FFT_Display extends JFrame {
 	Color defBackground = Color.PINK;
-	Color specColorDef = Color.GREEN;
+	static Color specColorDef = Color.GREEN;
 	final int maxSpectralValue = 150;
 
 	JPanel myPaint = new JPanel();
 	private int[] spectrum;
+	private int type;
 
-	public FFT_Display() {
+	public FFT_Display(int type) {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 		myPaint.setBackground(defBackground);
 		getContentPane().add(myPaint);
 		setSize(new Dimension(800, 600));
-		setVisible(true);
 		myPaint.setDoubleBuffered(true);
+		this.type=type;
 	}
 
 	@Override
@@ -44,10 +45,10 @@ public class FFT_Display extends JFrame {
 	@Override
 	public void paintComponents(Graphics g) {
 		super.paintComponents(g);
-		paintSpectrum(g,0);
+		paintSpectrum(g);
 	}
 
-	private void paintSpectrum(Graphics g, int type) {
+	private void paintSpectrum(Graphics g) {
 		int width = getWidth();
 		int height = getHeight();
 		int middleY = height / 2;
@@ -77,10 +78,6 @@ public class FFT_Display extends JFrame {
 				g2.drawRect(barPos, middleY, barWidth,
 						curHeight/2);
 
-//				GradientPaint green2red1 = new GradientPaint(barPos, middleY,
-//						Color.GREEN, barPos + barWidth, height*3/4,
-//						Color.RED);
-//				g2.setPaint(green2red1);
 				g2.drawRect(barPos, middleY, barWidth,
 						-curHeight/2);
 
@@ -97,7 +94,7 @@ public class FFT_Display extends JFrame {
 		}
 	}
 
-	private final Color getColor(double power, int type) {
+	public final static Color getColor(double power, int type) {
 		if (type == 1) {
 			double H = power * 0.4; // Hue (note 0.4 = Green, see huge chart
 									// below)
