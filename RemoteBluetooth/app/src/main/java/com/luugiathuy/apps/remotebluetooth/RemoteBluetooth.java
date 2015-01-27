@@ -74,7 +74,7 @@ public class RemoteBluetooth extends Activity implements
     private RealDoubleFFT transformer;
     int blockSize;// = 256;
     Button startStopButton;
-    boolean started = false;
+    public static boolean started = false;
 
     RecordAudio recordTask;
     ImageView imageViewDisplaySectrum;
