@@ -611,20 +611,6 @@ public class RemoteBluetooth extends Activity implements
         return false;
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            mCommandService.write(BluetoothCommandService.VOL_UP);
-            return true;
-        }
-        else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-            mCommandService.write(BluetoothCommandService.VOL_DOWN);
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
     public void refreshDisplay() {
         canvasDisplaySpectrum.drawColor(Color.BLACK);
         imageViewDisplaySectrum.invalidate();
