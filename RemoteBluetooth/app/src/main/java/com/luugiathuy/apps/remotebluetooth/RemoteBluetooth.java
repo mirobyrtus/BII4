@@ -78,21 +78,17 @@ public class RemoteBluetooth extends Activity implements
 
     RecordAudio recordTask;
     ImageView imageViewDisplaySectrum;
-    MyImageView imageViewScale;
     Bitmap bitmapDisplaySpectrum;
 
     Canvas canvasDisplaySpectrum;
 
     Paint paintSpectrumDisplay;
-    Paint paintScaleDisplay;
     static RemoteBluetooth mainActivity;
     LinearLayout main;
     public static int width;
     public static int height;
-    int left_Of_BimapScale;
     int left_Of_DisplaySpectrum;
     private final static int ID_BITMAPDISPLAYSPECTRUM = 1;
-    private final static int ID_IMAGEVIEWSCALE = 2;
 
     /** Called when the activity is first created. */
     @Override
@@ -140,11 +136,7 @@ public class RemoteBluetooth extends Activity implements
             bitmapDisplaySpectrum = Bitmap.createBitmap((int) 256, (int) 150,
                     Bitmap.Config.ARGB_8888);
         }
-        LinearLayout.LayoutParams layoutParams_imageViewScale = null;
-        // Bitmap scaled = Bitmap.createScaledBitmap(bitmapDisplaySpectrum, 320,
-        // 480, true);
         canvasDisplaySpectrum = new Canvas(bitmapDisplaySpectrum);
-        // canvasDisplaySpectrum = new Canvas(scaled);
         paintSpectrumDisplay = new Paint();
         paintSpectrumDisplay.setColor(Color.RED);
         imageViewDisplaySectrum.setImageBitmap(bitmapDisplaySpectrum);
@@ -158,12 +150,6 @@ public class RemoteBluetooth extends Activity implements
                     .setMargins(100, 600, 0, 0);
             imageViewDisplaySectrum
                     .setLayoutParams(layoutParams_imageViewDisplaySpectrum);
-            layoutParams_imageViewScale = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            // layoutParams_imageViewScale.gravity = Gravity.CENTER_HORIZONTAL;
-            ((MarginLayoutParams) layoutParams_imageViewScale).setMargins(100,
-                    20, 0, 0);
 
         }
 
@@ -178,14 +164,7 @@ public class RemoteBluetooth extends Activity implements
             imageViewDisplaySectrum
                     .setLayoutParams(layoutParams_imageViewDisplaySpectrum);
 
-            // imageViewDisplaySectrum.setLayoutParams(new
-            // LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            layoutParams_imageViewScale = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            ((MarginLayoutParams) layoutParams_imageViewScale).setMargins(60,
-                    20, 0, 100);
-            // layoutParams_imageViewScale.gravity = Gravity.CENTER_HORIZONTAL;
+
         }
 
         else if (width < 320) {
@@ -202,24 +181,11 @@ public class RemoteBluetooth extends Activity implements
                     .setLayoutParams(new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.FILL_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT));
-            layoutParams_imageViewScale = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            // layoutParams_imageViewScale.gravity = Gravity.CENTER;
+
         }
         imageViewDisplaySectrum.setId(ID_BITMAPDISPLAYSPECTRUM);
         main.addView(imageViewDisplaySectrum);
 
-        // ((MarginLayoutParams) layoutParams_imageViewScale).setMargins(0, 20,
-        // 0, 20);
-
-        imageViewScale = new MyImageView(this);
-        imageViewScale.setLayoutParams(layoutParams_imageViewScale);
-        imageViewScale.setId(ID_IMAGEVIEWSCALE);
-
-        // imageViewScale.setLayoutParams(new
-        // LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-        main.addView(imageViewScale);
 
         startStopButton = new Button(this);
         startStopButton.setText("Start Recording");
@@ -233,7 +199,6 @@ public class RemoteBluetooth extends Activity implements
         setContentView(main);
         // recordTask = new RecordAudio();
 
-        /* left_Of_BimapScale = main.getChildAt(1).getLeft(); */
 
         mainActivity = this;
 
@@ -255,11 +220,8 @@ public class RemoteBluetooth extends Activity implements
     /// Sound
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        // left_Of_BimapScale = main.getC.getLeft();
-        MyImageView scale = (MyImageView) main.findViewById(ID_IMAGEVIEWSCALE);
         ImageView bitmap = (ImageView) main
                 .findViewById(ID_BITMAPDISPLAYSPECTRUM);
-        left_Of_BimapScale = scale.getLeft();
         left_Of_DisplaySpectrum = bitmap.getLeft();
     }
 
@@ -554,86 +516,6 @@ public class RemoteBluetooth extends Activity implements
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    /// Sound
-    // Custom Imageview Class
-    public class MyImageView extends ImageView {
-        Paint paintScaleDisplay;
-        Bitmap bitmapScale;
-        Canvas canvasScale;
-
-        // Bitmap scaled;
-        public MyImageView(Context context) {
-            super(context);
-            // TODO Auto-generated constructor stub
-            if (width > 512) {
-                bitmapScale = Bitmap.createBitmap((int) 512, (int) 50,
-                        Bitmap.Config.ARGB_8888);
-            } else {
-                bitmapScale = Bitmap.createBitmap((int) 256, (int) 50,
-                        Bitmap.Config.ARGB_8888);
-            }
-
-            paintScaleDisplay = new Paint();
-            paintScaleDisplay.setColor(Color.WHITE);
-            paintScaleDisplay.setStyle(Paint.Style.FILL);
-
-            canvasScale = new Canvas(bitmapScale);
-
-            setImageBitmap(bitmapScale);
-            invalidate();
-
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            // TODO Auto-generated method stub
-            super.onDraw(canvas);
-
-            // int x_Of_BimapScale = bitmapScale.
-            /*
-            if (width > 512) {
-                canvasScale.drawLine(0, 30, 512, 30, paintScaleDisplay);
-                for (int i = 0, j = 0; i < 512; i = i + 128, j++) {
-                    for (int k = i; k < (i + 128); k = k + 16) {
-                        canvasScale.drawLine(k, 30, k, 25, paintScaleDisplay);
-                    }
-                    canvasScale.drawLine(i, 40, i, 25, paintScaleDisplay);
-                    String text = Integer.toString(j) + " KHz";
-                    canvasScale.drawText(text, i, 45, paintScaleDisplay);
-                }
-                canvas.drawBitmap(bitmapScale, 0, 0, paintScaleDisplay);
-            } else if ((width > 320) && (width < 512)) {
-                canvasScale.drawLine(0, 30, 0 + 256, 30, paintScaleDisplay);
-                for (int i = 0, j = 0; i < 256; i = i + 64, j++) {
-                    for (int k = i; k < (i + 64); k = k + 8) {
-                        canvasScale.drawLine(k, 30, k, 25, paintScaleDisplay);
-                    }
-                    canvasScale.drawLine(i, 40, i, 25, paintScaleDisplay);
-                    String text = Integer.toString(j) + " KHz";
-                    canvasScale.drawText(text, i, 45, paintScaleDisplay);
-                }
-                canvas.drawBitmap(bitmapScale, 0, 0, paintScaleDisplay);
-            }
-
-            else if (width < 320) {
-                canvasScale.drawLine(0, 30, 256, 30, paintScaleDisplay);
-                for (int i = 0, j = 0; i < 256; i = i + 64, j++) {
-                    for (int k = i; k < (i + 64); k = k + 8) {
-                        canvasScale.drawLine(k, 30, k, 25, paintScaleDisplay);
-                    }
-                    canvasScale.drawLine(i, 40, i, 25, paintScaleDisplay);
-                    String text = Integer.toString(j) + " KHz";
-                    canvasScale.drawText(text, i, 45, paintScaleDisplay);
-                }
-                canvas.drawBitmap(bitmapScale, 0, 0, paintScaleDisplay);
-            }
-            */
-            // canvas.drawBitmap(bitmapScale, 0, 400, paintScaleDisplay);
-            // invalidate();
-        }
-
     }
 
     private void ensureDiscoverable() {
