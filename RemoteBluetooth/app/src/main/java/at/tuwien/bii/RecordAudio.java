@@ -1,20 +1,13 @@
 package at.tuwien.bii;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.luugiathuy.apps.remotebluetooth.RemoteBluetooth;
-
 import ca.uol.aig.fftpack.RealDoubleFFT;
 
-/**
- * Created by mirob_000 on 27.01.2015.
- */
 public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
     int frequency = 8000;
