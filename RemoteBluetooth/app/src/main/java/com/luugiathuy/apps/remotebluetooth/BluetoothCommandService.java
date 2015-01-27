@@ -21,7 +21,15 @@ public class BluetoothCommandService {
 
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
-    
+
+    private RemoteBluetooth rbt;
+    public void setRBT(RemoteBluetooth new_rbt) {
+        rbt = new_rbt;
+    }
+
+    public RemoteBluetooth getRBT() {
+        return rbt;
+    }
     
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -49,11 +57,12 @@ public class BluetoothCommandService {
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
-    public BluetoothCommandService(Context context, Handler handler) {
+    public BluetoothCommandService(RemoteBluetooth context, Handler handler) {
     	mAdapter = BluetoothAdapter.getDefaultAdapter();
     	mState = STATE_NONE;
     	//mConnectionLostCount = 0;
     	mHandler = handler;
+        rbt = context;
     }
     
     /**
@@ -151,7 +160,7 @@ public class BluetoothCommandService {
         if (D) Log.d(TAG, "stop");
         if (mConnectThread != null) {mConnectThread.cancel(); mConnectThread = null;}
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
-        
+
         setState(STATE_NONE);
     }
     
@@ -218,6 +227,9 @@ public class BluetoothCommandService {
 	        Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
 	        Bundle bundle = new Bundle();
 	        bundle.putString(RemoteBluetooth.TOAST, "Device connection was lost");
+
+            getRBT().stopRecording();
+
 	        msg.setData(bundle);
 	        mHandler.sendMessage(msg);
 //        }

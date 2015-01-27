@@ -146,7 +146,7 @@ public class RemoteBluetooth extends Activity implements
         canvasDisplaySpectrum = new Canvas(bitmapDisplaySpectrum);
         // canvasDisplaySpectrum = new Canvas(scaled);
         paintSpectrumDisplay = new Paint();
-        paintSpectrumDisplay.setColor(Color.GREEN);
+        paintSpectrumDisplay.setColor(Color.RED);
         imageViewDisplaySectrum.setImageBitmap(bitmapDisplaySpectrum);
         if (width > 512) {
             // imageViewDisplaySectrum.setLayoutParams(new
@@ -222,7 +222,7 @@ public class RemoteBluetooth extends Activity implements
         main.addView(imageViewScale);
 
         startStopButton = new Button(this);
-        startStopButton.setText("Start");
+        startStopButton.setText("Start Recording");
         startStopButton.setOnClickListener(this);
         startStopButton.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.FILL_PARENT,
@@ -265,6 +265,15 @@ public class RemoteBluetooth extends Activity implements
 
     long timestamp = System.nanoTime();
     long counter = 0;
+
+    void stopRecording() {
+        // set recording = false;
+        // stop RecordAudioTask
+        startStopButton.setText("Start Recording");
+        recordTask.cancel(true);
+        // recordTask = null;
+        canvasDisplaySpectrum.drawColor(Color.BLACK);
+    }
 
     /// Sound
     private class RecordAudio extends AsyncTask<Void, double[], Void> {
@@ -348,6 +357,9 @@ public class RemoteBluetooth extends Activity implements
                 return;
             }
 
+            // Clear Canvas
+            canvasDisplaySpectrum.drawColor(Color.BLACK);
+
             if (width > 512) {
 
                 StringBuilder out = new StringBuilder();
@@ -370,7 +382,7 @@ public class RemoteBluetooth extends Activity implements
                     // if (i < 20) out.append("[" + downy + "] ");
                 }
 
-                // mCommandService.write(spectrum);
+                mCommandService.write(spectrum);
 
                 // Log.i("DOWNY", out.toString());
                 imageViewDisplaySectrum.invalidate();
@@ -380,7 +392,6 @@ public class RemoteBluetooth extends Activity implements
 
                 StringBuilder out = new StringBuilder();
                 byte[] spectrum = new byte[toTransform[0].length * 4];
-                // byte[] spectrum = new byte[blocksize * 4];
 
                 for (int i = 0; i < toTransform[0].length; i++) {
                     int x = i;
@@ -437,13 +448,13 @@ public class RemoteBluetooth extends Activity implements
 
         if (started == true) {
             started = false;
-            startStopButton.setText("Start");
+            startStopButton.setText("Start Recording");
             recordTask.cancel(true);
             // recordTask = null;
             canvasDisplaySpectrum.drawColor(Color.BLACK);
         } else {
             started = true;
-            startStopButton.setText("Stop");
+            startStopButton.setText("Cancel - Disconnect");
             recordTask = new RecordAudio();
             recordTask.execute();
         }
@@ -573,7 +584,7 @@ public class RemoteBluetooth extends Activity implements
             super.onDraw(canvas);
 
             // int x_Of_BimapScale = bitmapScale.
-
+            /*
             if (width > 512) {
                 canvasScale.drawLine(0, 30, 512, 30, paintScaleDisplay);
                 for (int i = 0, j = 0; i < 512; i = i + 128, j++) {
@@ -610,7 +621,7 @@ public class RemoteBluetooth extends Activity implements
                 }
                 canvas.drawBitmap(bitmapScale, 0, 0, paintScaleDisplay);
             }
-
+            */
             // canvas.drawBitmap(bitmapScale, 0, 400, paintScaleDisplay);
             // invalidate();
         }
