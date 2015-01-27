@@ -742,4 +742,17 @@ public class RemoteBluetooth extends Activity implements
 
         return super.onKeyDown(keyCode, event);
     }
+
+    public void refreshDisplay() {
+        canvasDisplaySpectrum.drawColor(Color.BLACK);
+        imageViewDisplaySectrum.invalidate();
+    }
+
+    public void sendSpectrum(byte[] spectrum) {
+        mCommandService.write(spectrum);
+    }
+
+    public void drawSpectrum(int x, int downy, int upy) {
+        canvasDisplaySpectrum.drawLine(x, downy, x, upy, paintSpectrumDisplay);
+    }
 }
