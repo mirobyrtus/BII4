@@ -269,10 +269,16 @@ public class RemoteBluetooth extends Activity implements
     void stopRecording() {
         // set recording = false;
         // stop RecordAudioTask
-        startStopButton.setText("Start Recording");
-        recordTask.cancel(true);
-        // recordTask = null;
-        canvasDisplaySpectrum.drawColor(Color.BLACK);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                //stuff that updates ui
+                startStopButton.performClick();
+                canvasDisplaySpectrum.drawColor(Color.BLACK);
+            }
+        });
     }
 
     /// Sound
@@ -453,10 +459,12 @@ public class RemoteBluetooth extends Activity implements
             // recordTask = null;
             canvasDisplaySpectrum.drawColor(Color.BLACK);
         } else {
-            started = true;
-            startStopButton.setText("Cancel - Disconnect");
-            recordTask = new RecordAudio();
-            recordTask.execute();
+            if (mCommandService.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                started = true;
+                startStopButton.setText("Cancel - Disconnect");
+                recordTask = new RecordAudio();
+                recordTask.execute();
+            }
         }
 
     }
