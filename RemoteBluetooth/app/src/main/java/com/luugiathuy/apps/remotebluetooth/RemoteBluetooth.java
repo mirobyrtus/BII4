@@ -87,8 +87,8 @@ public class RemoteBluetooth extends Activity implements
     Paint paintScaleDisplay;
     static RemoteBluetooth mainActivity;
     LinearLayout main;
-    int width;
-    int height;
+    public static int width;
+    public static int height;
     int left_Of_BimapScale;
     int left_Of_DisplaySpectrum;
     private final static int ID_BITMAPDISPLAYSPECTRUM = 1;
