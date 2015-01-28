@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import at.tuwien.bii.BluetoothConstants;
 import at.tuwien.bii.RemoteBluetooth;
 
 public class BluetoothCommandService {
@@ -46,13 +47,7 @@ public class BluetoothCommandService {
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-    
-    // Constants that indicate command to computer
-    public static final int EXIT_CMD = -1;
-    public static final int VOL_UP = 1;
-    public static final int VOL_DOWN = 2;
-    public static final int MOUSE_MOVE = 3;
-    
+
     /**
      * Constructor. Prepares a new BluetoothChat session.
      * @param context  The UI Activity Context
@@ -76,7 +71,7 @@ public class BluetoothCommandService {
 
         // TODO check this? Sending some end state requests ?
         // Give the new state to the Handler so the UI Activity can update
-        mHandler.obtainMessage(RemoteBluetooth.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
+        mHandler.obtainMessage(BluetoothConstants.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
     /**
@@ -140,9 +135,9 @@ public class BluetoothCommandService {
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
-        Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(BluetoothConstants.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
-        bundle.putString(RemoteBluetooth.DEVICE_NAME, device.getName());
+        bundle.putString(BluetoothConstants.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -201,9 +196,9 @@ public class BluetoothCommandService {
         setState(STATE_LISTEN);
 
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(BluetoothConstants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(RemoteBluetooth.TOAST, "Unable to connect device");
+        bundle.putString(BluetoothConstants.TOAST, "Unable to connect device");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
     }
@@ -225,9 +220,9 @@ public class BluetoothCommandService {
 //        } else {
         	setState(STATE_LISTEN);
 	        // Send a failure message back to the Activity
-	        Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
+	        Message msg = mHandler.obtainMessage(BluetoothConstants.MESSAGE_TOAST);
 	        Bundle bundle = new Bundle();
-	        bundle.putString(RemoteBluetooth.TOAST, "Device connection was lost");
+	        bundle.putString(BluetoothConstants.TOAST, "Device connection was lost");
 
             getRBT().stopRecording();
 
@@ -340,7 +335,7 @@ public class BluetoothCommandService {
                     int bytes = mmInStream.read(buffer);
 
                     // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(RemoteBluetooth.MESSAGE_READ, bytes, -1, buffer)
+                    mHandler.obtainMessage(BluetoothConstants.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);

@@ -33,7 +33,6 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
 
         transformer = new RealDoubleFFT(blockSize);
 
-        // try {
         int bufferSize = AudioRecord.getMinBufferSize(frequency,
                 channelConfiguration, audioEncoding);
                 audioRecord = new AudioRecord(
@@ -98,53 +97,24 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             return;
         }
 
-        if (RemoteBluetooth.width > 512) {
+        activity.clearDisplay();
 
-            StringBuilder out = new StringBuilder();
-            byte[] spectrum = new byte[toTransform[0].length * 4];
+        byte[] spectrum = new byte[toTransform[0].length * 4];
 
-            for (int i = 0; i < toTransform[0].length; i++) {
-                int x = 2 * i;
-                int downy = (int) (150 - (toTransform[0][i] * 10));
-                int upy = 150;
+        for (int i = 0; i < toTransform[0].length; i++) {
+            int x = i;
+            int downy = (int) (150 - (toTransform[0][i] * 10));
+            int upy = 150;
 
-                activity.drawSpectrum(x, downy, upy);
+            activity.drawSpectrum(x, downy, upy);
 
-                byte[] bytes = intToByteArray(downy);
-                spectrum[i * 4] = bytes[0];
-                spectrum[i * 4 + 1] = bytes[1];
-                spectrum[i * 4 + 2] = bytes[2];
-                spectrum[i * 4 + 3] = bytes[3];
-
-            }
+            byte[] bytes = intToByteArray(downy);
+            spectrum[i * 4] = bytes[0];
+            spectrum[i * 4 + 1] = bytes[1];
+            spectrum[i * 4 + 2] = bytes[2];
+            spectrum[i * 4 + 3] = bytes[3];
 
             activity.sendSpectrum(spectrum);
-        }
-
-        else {
-
-            StringBuilder out = new StringBuilder();
-            byte[] spectrum = new byte[toTransform[0].length * 4];
-
-            for (int i = 0; i < toTransform[0].length; i++) {
-                int x = i;
-                int downy = (int) (150 - (toTransform[0][i] * 10));
-                int upy = 150;
-
-                activity.drawSpectrum(x, downy, upy);
-
-                out.append("[" + downy + "] ");
-
-                byte[] bytes = intToByteArray(downy);
-                spectrum[i * 4] = bytes[0];
-                spectrum[i * 4 + 1] = bytes[1];
-                spectrum[i * 4 + 2] = bytes[2];
-                spectrum[i * 4 + 3] = bytes[3];
-
-            }
-
-            activity.sendSpectrum(spectrum);
-
         }
 
         activity.refreshDisplay();
