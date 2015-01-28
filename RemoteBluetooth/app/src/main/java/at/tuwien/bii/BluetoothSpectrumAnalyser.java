@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.luugiathuy.apps.remotebluetooth.BluetoothCommandService;
 import com.luugiathuy.apps.remotebluetooth.DeviceListActivity;
 
-public class RemoteBluetooth extends Activity {
+public class BluetoothSpectrumAnalyser extends Activity {
 
     private BluetoothAdapter bluetoothAdapter = null;
     private BluetoothCommandService bluetoothCommandService = null;

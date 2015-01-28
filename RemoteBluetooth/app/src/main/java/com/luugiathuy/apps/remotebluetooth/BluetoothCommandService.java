@@ -14,7 +14,7 @@ import android.os.Message;
 import android.util.Log;
 
 import at.tuwien.bii.BluetoothConstants;
-import at.tuwien.bii.RemoteBluetooth;
+import at.tuwien.bii.BluetoothSpectrumAnalyser;
 
 public class BluetoothCommandService {
 	// Debugging
@@ -24,12 +24,12 @@ public class BluetoothCommandService {
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("04c6093b-0000-1000-8000-00805f9b34fb");
 
-    private RemoteBluetooth rbt;
-    public void setRBT(RemoteBluetooth new_rbt) {
+    private BluetoothSpectrumAnalyser rbt;
+    public void setRBT(BluetoothSpectrumAnalyser new_rbt) {
         rbt = new_rbt;
     }
 
-    public RemoteBluetooth getRBT() {
+    public BluetoothSpectrumAnalyser getRBT() {
         return rbt;
     }
     
@@ -53,7 +53,7 @@ public class BluetoothCommandService {
      * @param context  The UI Activity Context
      * @param handler  A Handler to send messages back to the UI Activity
      */
-    public BluetoothCommandService(RemoteBluetooth context, Handler handler) {
+    public BluetoothCommandService(BluetoothSpectrumAnalyser context, Handler handler) {
     	mAdapter = BluetoothAdapter.getDefaultAdapter();
     	mState = STATE_NONE;
     	//mConnectionLostCount = 0;

@@ -18,8 +18,8 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
     private RealDoubleFFT transformer;
     public final static int blockSize = 128;
 
-    RemoteBluetooth activity = null;
-    public RecordAudio(RemoteBluetooth a) {
+    BluetoothSpectrumAnalyser activity = null;
+    public RecordAudio(BluetoothSpectrumAnalyser a) {
         activity = a;
         transformer = new RealDoubleFFT(RecordAudio.blockSize);
     }
@@ -47,7 +47,7 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             Log.e("Recording failed", e.toString());
 
         }
-        while (RemoteBluetooth.started) {
+        while (BluetoothSpectrumAnalyser.started) {
 
             bufferReadResult = audioRecord.read(buffer, 0, blockSize);
 

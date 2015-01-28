@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, RemoteBluetooth!</string>
-    <string name="app_name">RemoteBluetooth</string>
+    <string name="app_name">BluetoothSpectrumAnalyser</string>
     <string name="btn_find">Find Device</string>
-    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Remote Bluetooth</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Exit</string>
     <string name="title_paired_devices">Paired Devices</string>
     <string name="title_other_devices">Other Available Devices</string>
     <string name="button_scan">Scan for devices</string>
