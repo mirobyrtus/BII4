@@ -19,3 +19,4 @@ BII Project 4
 Used libraries: 
 For FastFourierTransform : https://github.com/sommukhopadhyay/FFTBasedSpectrumAnalyzer
 For Bluetooth : https://github.com/luugiathuy/Remote-Bluetooth-Android
+Bluecove 2.1.0.: http://bluecove.org/
