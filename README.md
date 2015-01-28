@@ -8,7 +8,8 @@ BII Project 4
       Process audio input - do FFT and send the spectral analysis to the Desktop server via Bluetooth
       The data will be serialized into a byte array
       On Android device there is also a simple visualisation for debug purposes
-    
+      Binary (.apk) can be found under https://github.com/mirobyrtus/BII4/tree/master/BluetoothSpectrumAnalyser/app/build/outputs/apk    
+
   + Desktop (Java): RemoteBluetoothServer
       Retrieves the data, deserializes them
       Visualize the serialized data
