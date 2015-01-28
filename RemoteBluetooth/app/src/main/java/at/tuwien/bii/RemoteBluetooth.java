@@ -158,7 +158,9 @@ public class RemoteBluetooth extends Activity {
             bluetoothCommandService.stop();
         }
 
-        recordTask.cancel(true);
+        if (recordTask != null) {
+            recordTask.cancel(true);
+        }
     }
 
     private void ensureDiscoverable() {
