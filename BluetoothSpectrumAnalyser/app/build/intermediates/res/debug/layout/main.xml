@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/mainLinearLayout">
+
+    <ImageView
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:id="@+id/imageViewDisplaySectrum"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Recording"
+        android:id="@+id/startStopButton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="OnStartStop" />
+</LinearLayout>
+<!-- From: file:/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/src/main/res/layout/main.xml -->
