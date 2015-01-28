@@ -1,9 +1,8 @@
-package com.luugiathuy.apps.remotebluetooth;
+package at.tuwien.bii;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -19,7 +18,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,15 +30,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.luugiathuy.apps.remotebluetooth.BluetoothCommandService;
+import com.luugiathuy.apps.remotebluetooth.DeviceListActivity;
+import com.luugiathuy.apps.remotebluetooth.R;
+
 import ca.uol.aig.fftpack.RealDoubleFFT;
 
 public class RemoteBluetooth extends Activity implements
         OnClickListener {
-
-    // Layout view
-    //private TextView mTitle;
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -228,7 +227,7 @@ public class RemoteBluetooth extends Activity implements
     long timestamp = System.nanoTime();
     long counter = 0;
 
-    void stopRecording() {
+    public void stopRecording() {
         // set recording = false;
         // stop RecordAudioTask
 
