@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.luugiathuy.apps.remotebluetooth.BluetoothCommandService;
 import com.luugiathuy.apps.remotebluetooth.DeviceListActivity;
-import com.luugiathuy.apps.remotebluetooth.R;
 
 public class RemoteBluetooth extends Activity {
 
