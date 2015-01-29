@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/mirob_000/Documents/GitHub/BII4/BluetoothSpectrumAnalyser/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">BluetoothSpectrumAnalyser</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Exit</string>

@@ -39,4 +39,4 @@
         android:layout_height="wrap_content"
         android:text="@string/button_scan"
     />
-</LinearLayout><!-- From: file:/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/src/main/res/layout/device_list.xml -->
+</LinearLayout><!-- From: file:/C:/Users/mirob_000/Documents/GitHub/BII4/BluetoothSpectrumAnalyser/app/src/main/res/layout/device_list.xml -->

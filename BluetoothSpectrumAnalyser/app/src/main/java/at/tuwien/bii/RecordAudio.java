@@ -113,10 +113,9 @@ public class RecordAudio extends AsyncTask<Void, double[], Void> {
             spectrum[i * 4 + 1] = bytes[1];
             spectrum[i * 4 + 2] = bytes[2];
             spectrum[i * 4 + 3] = bytes[3];
-
-            activity.sendSpectrum(spectrum);
         }
 
+        activity.sendSpectrum(spectrum);
         activity.refreshDisplay();
 
     }

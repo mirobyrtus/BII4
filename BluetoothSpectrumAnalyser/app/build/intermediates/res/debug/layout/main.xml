@@ -19,4 +19,4 @@
         android:layout_gravity="center_horizontal"
         android:onClick="OnStartStop" />
 </LinearLayout>
-<!-- From: file:/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/src/main/res/layout/main.xml -->
+<!-- From: file:/C:/Users/mirob_000/Documents/GitHub/BII4/BluetoothSpectrumAnalyser/app/src/main/res/layout/main.xml -->
