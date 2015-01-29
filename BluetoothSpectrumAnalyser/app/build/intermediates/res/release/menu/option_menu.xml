@@ -7,4 +7,4 @@
           android:icon="@android:drawable/ic_menu_mylocation"
           android:title="@string/discoverable" />
 </menu>
-<!-- From: file:/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/src/main/res/menu/option_menu.xml -->
+<!-- From: file:/C:/Users/mirob_000/Documents/GitHub/BII4/BluetoothSpectrumAnalyser/app/src/main/res/menu/option_menu.xml -->

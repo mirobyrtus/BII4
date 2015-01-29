@@ -1,1 +1,1 @@
-/Users/mmz/Development/TU/BII/latest/BII4/RemoteBluetooth/app/build/intermediates/classes/release
+C:\Users\mirob_000\Documents\GitHub\BII4\BluetoothSpectrumAnalyser\app\build\intermediates\classes\release
